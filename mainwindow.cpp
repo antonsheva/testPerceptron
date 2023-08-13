@@ -243,6 +243,7 @@ void MainWindow::getLastLayerWeigth(int lW, int rW, double*wt, double*inp, doubl
             dir = (res-goal)*inp[i];
             wt[i] -= dir*G_alfa;
          }
+
          //getWeights(arrW1[k], arrN0, arrN1[k], arrG[k], 3);
 
 
@@ -250,7 +251,7 @@ void MainWindow::getLastLayerWeigth(int lW, int rW, double*wt, double*inp, doubl
 //         resStr  = QString::number(arrN1[k]);
 //         ui->lb1->append("err->"+errStr+"; res->"+resStr);
     }
-
+    i++;
 //dfghdfhdfhdfghdfghdf
     ////dfghdfgh
     ///

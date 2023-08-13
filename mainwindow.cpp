@@ -258,7 +258,7 @@ void MainWindow::getLastLayerWeigth(int lW, int rW, double*wt, double*inp, doubl
 void MainWindow::on_pushButton_6_clicked()
 {
     int i,k;
-    QString errStr, resStr;
+    QString errStr, resStr, tmp;
 
     double  err;
 

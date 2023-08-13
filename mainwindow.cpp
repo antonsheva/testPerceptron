@@ -128,7 +128,7 @@ void MainWindow::on_btSigmoid_clicked()
     double z, step;
 
 
-    if (!checkStrDouble(ui->edSigStep->text() , &step, ui->edSigStep, false)) step = 15;
+    if (!checkStrDouble(ui->edSigTilt->text() , &step, ui->edSigTilt, false)) step = 15;
 
     z=0;
     scene->clear();
@@ -233,8 +233,8 @@ void MainWindow::loadInputsGoalsData(){
 
 void MainWindow::getLastLayerWeigth(int lW, int rW, double*wt, double*inp, double res, double goal, int qt)
 {
-    int i;
-    double dir;
+    int i,k;
+    double dir, err;
 
     for(k=0; k<3; k++){
          err = pow((arrN1[k]-arrG[k]),2);
@@ -252,24 +252,6 @@ void MainWindow::getLastLayerWeigth(int lW, int rW, double*wt, double*inp, doubl
 //         ui->lb1->append("err->"+errStr+"; res->"+resStr);
     }
     i++;
-//dfghdfhdfhdfghdfghdf
-    ////dfghdfgh
-    ///
-    ///
-    ///
-    ///
-    ///
-    ///
-    ///
-    ///
-    /// dfghdfghdfghdfgdhdh
-    ///
-    ///
-    ///
-    ///
-    ///
-    ///
-    ///
 
 }
 
@@ -369,7 +351,7 @@ void MainWindow::on_edSigTilt_textChanged(const QString &arg1)
 {
     Q_UNUSED(arg1);
     double val;
-    if(checkStrDouble(ui->edSigStep->text(), &val, ui->edSigStep)){
+    if(checkStrDouble(ui->edSigTilt->text(), &val, ui->edSigTilt)){
         G_sigmoidTilt = val;
     }
 }

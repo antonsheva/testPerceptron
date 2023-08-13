@@ -5,7 +5,7 @@
 #include "a_macro.cpp"
 
 #define N0_LEN    3
-#define N1_LEN    3
+#define N1_LEN    2
 #define N2_LEN    3
 
 
@@ -39,6 +39,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->img1->setScene(scene);
 
     G_sigmoidTilt = 15;
+    G_alfa = 0.1;
     initWeights();
 }
 
@@ -206,7 +207,7 @@ double MainWindow::sumWeights(double*inp, double*wt, int wtQt)
 }
 //----------------------------------------------------------------------------------------------------------------------------
 
-void MainWindow::getLastLayerWeights(double*wt, double*inp, double res, double goal, int qt)
+void MainWindow::getWeights(double*wt, double*inp, double res, double goal, int qt)
 {
    int i;
    double dir;
@@ -230,6 +231,46 @@ void MainWindow::loadInputsGoalsData(){
 }
 //----------------------------------------------------------------------------------------------------------------------------
 
+void MainWindow::getLastLayerWeigth(int lW, int rW, double*wt, double*inp, double res, double goal, int qt)
+{
+    int i;
+    double dir;
+
+    for(k=0; k<3; k++){
+         err = pow((arrN1[k]-arrG[k]),2);
+
+         for (i = 0; i < qt; i++) {
+            dir = (res-goal)*inp[i];
+            wt[i] -= dir*G_alfa;
+         }
+         //getWeights(arrW1[k], arrN0, arrN1[k], arrG[k], 3);
+
+
+//         errStr  =  QString::number(err);
+//         resStr  = QString::number(arrN1[k]);
+//         ui->lb1->append("err->"+errStr+"; res->"+resStr);
+    }
+
+//dfghdfhdfhdfghdfghdf
+    ////dfghdfgh
+    ///
+    ///
+    ///
+    ///
+    ///
+    ///
+    ///
+    ///
+    /// dfghdfghdfghdfgdhdh
+    ///
+    ///
+    ///
+    ///
+    ///
+    ///
+    ///
+
+}
 
 void MainWindow::on_pushButton_6_clicked()
 {
@@ -247,11 +288,14 @@ void MainWindow::on_pushButton_6_clicked()
     arrG[2] = ui->edGoal3->text().toDouble();
 
     for (  i = 0; i < 40; i++){
-        mf->matrixMul(arrN0, 3, M_ARR(3,3,arrW1),   arrN1);
+        mf->matrixMul(arrN0, N0_LEN, M_ARR(N0_LEN,N1_LEN,arrW1),   arrN1);
         mf->getSigmoid(arrN1, N1_LEN, G_sigmoidTilt);
-        for(k=0; k<3; k++){
+
+
+
+        for(k=0; k < N1_LEN; k++){
              err = pow((arrN1[k]-arrG[k]),2);
-             getLastLayerWeights(arrW1[k], arrN0, arrN1[k], arrG[k], 3);
+             getWeights(arrW1[k], arrN0, arrN1[k], arrG[k], 3);
              errStr  =  QString::number(err);
              resStr  = QString::number(arrN1[k]);
              ui->lb1->append("err->"+errStr+"; res->"+resStr);
@@ -278,7 +322,7 @@ void MainWindow::on_btLern_clicked()
        for (  k = 0; k < 3; k++) {
 
             err = pow((arrN1[k]-arrG[k]),2);
-            getLastLayerWeights(arrW1[k], arrN0, arrN1[k], arrG[k], 3);
+            getWeights(arrW1[k], arrN0, arrN1[k], arrG[k], 3);
             errStr  =  QString::number(err);
             resStr  = QString::number(arrN1[k]);
             ui->lb1->append("err->"+errStr+"; res->"+resStr);
@@ -370,3 +414,12 @@ void MainWindow::on_pushButton_5_clicked()
     i=0;
 }
 
+
+void MainWindow::on_edAlfa_textChanged(const QString &arg1)
+{
+    Q_UNUSED(arg1);
+    double val;
+    if(checkStrDouble(ui->edAlfa->text(), &val, ui->edAlfa)){
+        G_alfa = val;
+    }
+}

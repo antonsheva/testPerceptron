@@ -21,6 +21,7 @@ public:
 
 
 
+    void getLastLayerWeigth(int lW, int rW, double *wt, double *inp, double res, double goal, int qt);
 private slots:
 
     void on_edN1_textChanged(const QString &arg1);
@@ -43,6 +44,10 @@ private slots:
 
     void on_pushButton_6_clicked();
 
+
+
+    void on_edAlfa_textChanged(const QString &arg1);
+
 private:
 
 
@@ -56,7 +61,7 @@ private:
                w3[3][3];
 
     double G_sigmoidTilt;
-
+    double G_alfa;
 
 
     Ui::MainWindow *ui;
